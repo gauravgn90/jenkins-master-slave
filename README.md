@@ -14,3 +14,8 @@ Generate SSH key
 - Select Advanced option
 - port value will be 22
 - javapath value will be /opt/java/openjdk/bin/java
+- Set connection time out settings
+- set retires setting
+- set wait  between retries
+
+- Set up Completed check agent logs once you save the agent configs.
