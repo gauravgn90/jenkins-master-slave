@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  jenkins-server:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-server
+    ports:
+      - "8084:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home_at_host:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-network
+    hostname: jenkins-server
+
+  jenkins-agent2:
+    image: jenkins/ssh-agent:jdk11
+    container_name: jenkins-agent2
+    hostname: jenkins-agent2
+    privileged: true
+    user: root
+    expose:
+    - 22
+    environment:
+      JENKINS_AGENT_SSH_PUBKEY: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDQFZsVXHZ3MmIpe68xUgfStKS57Ou8bbIOooiX/zvSYW5wKGaGeBbEf4hU+MYd3B0r+eh7TYof+EjKN/m/wji66lT98qTh/r7pB5BBWpldU9kt3HWN+bcL+ENXGhdn485yXmaHvHJM1kDHJScZQg0/dSozpuz6Nh3MMi7GW3fPz9SkL5idWgBvbq1KbmqlXj6Oz2t8Xa1/rYjhail2h4aVex5zCskaQCyPPyO1doOok+Au8l/fwlzi4/phW2n02UejebvxSs1VbDJVJfSXNXT7rYJbzkEvNyKTtTa9GShmNDX9II/UPu3g61F0nrg+jThn+4g3jpZharE3mD7sXKGwmQN/89RQBFfLjGRunGh8f4VMLVtzcha5JUN9n+0awVTEsMZCWgx3WiOKOFi8LwjqzBUd0S6h9JZWFmJ3TsqSXiWqeyoIJrIIIg0Oli+05bBwvyaaBPv+Y/qgvh1fMk4B6jZDDKMIS3Kj/jow2mMfQHf3Ogl1r8c6yO+wzZmb80= gauravkumar07@IN-PG0351S4
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-network
+
+volumes:
+  jenkins_home_at_host:
+
+networks:
+  jenkins-network:
+    driver: bridge
+
