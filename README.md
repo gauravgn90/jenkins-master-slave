@@ -19,3 +19,7 @@ Generate SSH key
 - set wait  between retries
 
 - Set up Completed check agent logs once you save the agent configs.
+
+Further reference use below URL
+
+https://www.cloudbees.com/blog/how-to-install-and-run-jenkins-with-docker-compose
